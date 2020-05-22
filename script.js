@@ -43,6 +43,16 @@ function handleResultValidation() {
         let b = gameState[winCondition[1]];
         let c = gameState[winCondition[2]];
         if (a === b || a === c || b === c) {
+            if (a === '' && (b === 'O' && c === 'O'))
+                winCondition2 = winCondition[0];
+            else
+            if (b === '' && (a === 'O' && c === 'O'))
+                winCondition2 = winCondition[1];
+            else
+            if (c === '' && (b === 'O' && a === 'O'))
+                winCondition2 = winCondition[2];
+            
+            if(winCondition2 == null ){
             if (a === '' && (b === 'X' && c === 'X'))
                 winCondition2 = winCondition[0];
             else
@@ -51,6 +61,7 @@ function handleResultValidation() {
             else
             if (c === '' && (b === 'X' && a === 'X'))
                 winCondition2 = winCondition[2];
+                }
         }
         if (a === '' || b === '' || c === '') {
             continue;
@@ -127,12 +138,14 @@ function handleCellClick(clickedCellEvent) {
 
     handleCellPlayed(clickedCell, clickedCellIndex);
     handleResultValidation();
-    if (gameCounter < 1)
+    if (gameCounter < 1){
         if(clickedCellIndex != 4)
             embeddAI(3, null);
+        else if(clickedCellIndex === 4)
+            embeddAI(1, null);
         else
             embeddAI(clickedCellIndex, null);
-
+    }
 }
 
 function handleRestartGame() {
